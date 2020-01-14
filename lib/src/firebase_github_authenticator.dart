@@ -2,10 +2,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:github_sign_in/github_sign_in.dart';
 import 'package:identity/identity.dart';
-import 'package:identity_firebase/identity_firebase.dart';
 import 'package:sso/sso.dart';
 
-class FirebaseGithubAuthenticator with WillNotify implements Authenticator {
+class FirebaseGithubAuthenticator
+    with WillNotify, WillConvertUser
+    implements Authenticator {
   final String clientId;
   final String clientSecret;
   final String redirectUrl;
@@ -49,7 +50,7 @@ class FirebaseGithubAuthenticator with WillNotify implements Authenticator {
         return FirebaseAuth.instance
             .signInWithCredential(
                 GithubAuthProvider.getCredential(token: result.token))
-            .then((result) => FirebaseProvider.convert(result.user))
+            .then((result) => convert(result.user))
             .then((user) => Identity.of(context).user = user)
             .catchError(Identity.of(context).error);
 
