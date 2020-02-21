@@ -27,11 +27,11 @@ class FirebaseGithubAuthenticator
   @override
   WidgetBuilder get action => (context) => ActionButton(
       onPressed: () => authenticate(context),
-      color: Color.fromRGBO(36, 41, 46, 1),
+      color: Colors.black,
       textColor: Colors.white,
       icon: Image.asset("images/github.png",
           package: "identity_firebase_github", width: 24, height: 24),
-      text: "Sign In with GitHub");
+      text: "Sign in with GitHub");
 
   @override
   Future<void> authenticate(BuildContext context, [Map parameters]) async {
